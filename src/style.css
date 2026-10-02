@@ -639,6 +639,7 @@ canvas {
   position: absolute;
   inset: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   background: #04142c9e;
   backdrop-filter: blur(12px);
@@ -649,6 +650,8 @@ canvas {
   position: relative;
   width: 420px;
   max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
   max-height: calc(100dvh - 40px);
   overflow: auto;
   padding: 35px;

@@ -288,6 +288,12 @@ for (const [width, height] of [
     expect((await pause.boundingBox())!.height).toBeGreaterThanOrEqual(44);
     await page.screenshot({ path: `test-results/game-improved-${width}.png` });
     await pause.click();
+    const pauseDialog = page.getByRole("dialog");
+    const bounds = await pauseDialog.boundingBox();
+    expect(bounds!.x).toBeGreaterThanOrEqual(0);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+    expect(await pauseDialog.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+    await page.screenshot({ path: `test-results/pause-improved-${width}.png`, animations: "disabled" });
     await page.getByRole("button", { name: "遊び方", exact: true }).click();
     await page
       .getByRole("button", { name: "操作ガイドをもう一度", exact: true })
