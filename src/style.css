@@ -567,6 +567,7 @@ canvas {
   font-size: 13px;
   padding: 10px 16px;
   background: #fff;
+  color: #304276;
 }
 .control-hint {
   position: absolute;

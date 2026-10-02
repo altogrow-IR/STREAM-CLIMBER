@@ -46,6 +46,21 @@ test("recovery persists without erasing progress and records", async ({
   await page.reload();
   await page.getByRole("button", { name: /CONTINUE/ }).click();
   await expect(page.locator(".checkpoint-status")).toContainText("復帰 1回");
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 412, height: 915 },
+    { width: 1280, height: 720 },
+  ]) {
+    await page.setViewportSize(viewport);
+    const comment = page.locator(".comments .fall-comment");
+    await expect(comment).toBeVisible();
+    await expect(comment).toHaveCSS("background-color", "rgb(255, 255, 255)");
+    await expect(comment).toHaveCSS("color", "rgb(48, 66, 118)");
+    await page.screenshot({
+      path: `test-results/recovery-comment-${viewport.width}.png`,
+      animations: "disabled",
+    });
+  }
   await page.getByRole("button", { name: "一時停止", exact: true }).click();
   const save = (await page.evaluate(
     (key) => JSON.parse(localStorage.getItem(key)!),
