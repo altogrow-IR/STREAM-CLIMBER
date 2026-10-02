@@ -1491,25 +1491,6 @@ canvas {
   margin-top: 7px;
   text-shadow: 0 2px 5px #071b36;
 }
-.checkpoint-status {
-  position: absolute;
-  top: 205px;
-  left: max(30px, env(safe-area-inset-left));
-  background: #102b47ee;
-  border: 1px solid #8eead55c;
-  border-radius: 12px;
-  color: #bbffdf;
-  padding: 10px 13px;
-  pointer-events: none;
-  font-size: 13px;
-  max-width: 245px;
-}
-.checkpoint-status small {
-  display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  color: #dfecff;
-}
 .control-hint {
   max-width: 470px;
   width: max-content;
@@ -1701,11 +1682,6 @@ canvas {
   .zone-tip {
     display: none;
   }
-  .checkpoint-status {
-    top: calc(205px + env(safe-area-inset-top));
-    left: max(14px, env(safe-area-inset-left));
-    max-width: 215px;
-  }
   .control-hint {
     width: calc(100% - 28px);
     padding: 12px;
@@ -1749,10 +1725,6 @@ canvas {
   }
   .title-screen:has(.continue-summary) .title-pre {
     display: none;
-  }
-  .checkpoint-status {
-    top: calc(193px + env(safe-area-inset-top));
-    padding: 8px 10px;
   }
   .comments {
     display: none;
@@ -1814,12 +1786,6 @@ canvas {
   .footer-right {
     font-size: 10px;
   }
-  .checkpoint-status {
-    left: max(16px, env(safe-area-inset-left));
-    top: calc(146px + env(safe-area-inset-top));
-    padding: 8px 10px;
-    max-width: 240px;
-  }
   .zone-tip {
     display: none;
   }
@@ -1857,9 +1823,5 @@ canvas {
   }
   .comments {
     display: none;
-  }
-  .checkpoint-status {
-    font-size: 12px;
-    max-width: 190px;
   }
 }

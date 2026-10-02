@@ -45,7 +45,8 @@ test("recovery persists without erasing progress and records", async ({
   );
   await page.reload();
   await page.getByRole("button", { name: /CONTINUE/ }).click();
-  await expect(page.locator(".checkpoint-status")).toContainText("復帰 1回");
+  await expect(page.locator(".checkpoint-status")).toHaveCount(0);
+  await expect(page.locator(".comments .fall-comment")).toContainText("チェックポイントから");
   for (const viewport of [
     { width: 390, height: 844 },
     { width: 412, height: 915 },
@@ -62,6 +63,8 @@ test("recovery persists without erasing progress and records", async ({
     });
   }
   await page.getByRole("button", { name: "一時停止", exact: true }).click();
+  await expect(page.locator(".checkpoint-recovery")).toContainText("保存地点 03 / 08 · ギフトタワー");
+  await expect(page.locator(".checkpoint-recovery")).toContainText("復帰 1回");
   const save = (await page.evaluate(
     (key) => JSON.parse(localStorage.getItem(key)!),
     key,
@@ -77,19 +80,19 @@ test("recovery persists without erasing progress and records", async ({
   await page
     .getByRole("button", { name: "チェックポイントへ戻る", exact: true })
     .click();
-  await expect(page.locator(".checkpoint-status")).toContainText("復帰 2回");
+  await expect(page.locator(".checkpoint-status")).toHaveCount(0);
+  await page.getByRole("button", { name: "一時停止", exact: true }).click();
+  await expect(page.locator(".checkpoint-recovery")).toContainText("復帰 2回");
   await page.reload();
   await expect(page.locator(".continue-summary")).toContainText(
     "ギフトタワーで保存済み",
   );
   await page.getByRole("button", { name: /CONTINUE/ }).click();
-  await expect(page.locator(".checkpoint-status")).toContainText("復帰 2回");
   await page.getByRole("button", { name: "一時停止", exact: true }).click();
+  await expect(page.locator(".checkpoint-recovery")).toContainText("復帰 2回");
   await page.getByRole("button", { name: "最初から", exact: true }).click();
   await page.getByRole("button", { name: "最初から", exact: true }).click();
-  await expect(page.locator(".checkpoint-status")).toContainText(
-    "最初の足場へ",
-  );
+  await expect(page.locator(".checkpoint-status")).toHaveCount(0);
   const fresh = (await page.evaluate(
     (key) => JSON.parse(localStorage.getItem(key)!),
     key,

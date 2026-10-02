@@ -238,19 +238,6 @@ function App() {
               <strong>{currentZone.name}</strong>
               <small className="zone-tip">{ZONE_TIPS[hud.zone]}</small>
             </div>
-            <div className="checkpoint-status" aria-live="polite">
-              <span>
-                ⚑{" "}
-                {hud.checkpointZone === null
-                  ? "最初の足場へ"
-                  : `保存地点 ${String(hud.checkpointZone + 1).padStart(2, "0")} / 08`}
-              </span>
-              <small>
-                {hud.checkpointZone === null
-                  ? "足場に乗ると保存"
-                  : `${ZONES[hud.checkpointZone].name} · 復帰 ${hud.respawns}回`}
-              </small>
-            </div>
             {mode === "playing" && (
               <button
                 className="pause-button"
@@ -363,9 +350,10 @@ function App() {
             <div className="checkpoint-recovery">
               <p>
                 {hud?.checkpointZone != null
-                  ? `⚑ ${ZONES[hud.checkpointZone].name}`
+                  ? `⚑ 保存地点 ${String(hud.checkpointZone + 1).padStart(2, "0")} / 08 · ${ZONES[hud.checkpointZone].name}`
                   : "最初の足場に乗るとチェックポイントが保存されます。"}
               </p>
+              <small>チェックポイント復帰 {hud?.respawns ?? 0}回</small>
               {hud?.checkpointZone != null && (
                 <button
                   onClick={() => {
